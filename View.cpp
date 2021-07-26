@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <fstream>
 
-string View::getName() 
+string View::readName() 
 {
     string name;
     cout << "Name" 					<< "= ";
@@ -12,7 +12,7 @@ string View::getName()
     getline(cin, name);
     return name;
 }
-string View::getAuthor() 
+string View::readAuthor() 
 {
     string author;
     cout << "Author" 				<< "= ";
@@ -20,7 +20,7 @@ string View::getAuthor()
     return author;
 
 }
-string View::getYearOfRelease() 
+string View::readYearOfRelease() 
 {
     string releaseYear;
     cout << "Year of Release" 		<< "= ";
@@ -28,7 +28,7 @@ string View::getYearOfRelease()
     return releaseYear;
 
 }
-string View::getISBN() 
+string View::readISBN() 
 {
     string ISBN;
     cout << "ISBN" 					<< "= ";

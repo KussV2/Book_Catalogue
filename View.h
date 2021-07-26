@@ -20,10 +20,10 @@ class View
 		string showCheckDub();
 		string showSearchBook();
 		string getSearchedString(string key);
-		string getName();
-		string getAuthor();
-		string getYearOfRelease();
-		string getISBN();
+		string readName();
+		string readAuthor();
+		string readYearOfRelease();
+		string readISBN();
 		string showEditBookReplacement(char choice, Book book);
 		
 		int getEditableData(int bookNumber);

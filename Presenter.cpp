@@ -30,9 +30,9 @@ void Presenter::start()
         else if (choice == '2')
 		{
 			Book book;
-			book.name = myView.getName();
-			book.author = myView.getAuthor();
-			book.releaseYear = myView.getYearOfRelease();
+			book.name = myView.readName();
+			book.author = myView.readAuthor();
+			book.releaseYear = myView.readYearOfRelease();
 			book.ISBN = ISBNCheck();
 			
 			myModel.add(book);
@@ -94,14 +94,14 @@ string Presenter::ISBNCheck()
 	string tempISBN;
 	bool checkRepeatNumber = false, start = false;
 
-	tempISBN = myView.getISBN();
+	tempISBN = myView.readISBN();
 	checkRepeatNumber = myModel.checkDublicated(tempISBN);
 	while (true)
 	{
 		if (checkRepeatNumber == true)
 		{
 			myView.showMessage("This ISBN already exists, plz enter another one ");
-			tempISBN = myView.getISBN();
+			tempISBN = myView.readISBN();
 			checkRepeatNumber = myModel.checkDublicated(tempISBN);
 		}
 		else if (checkRepeatNumber == false)

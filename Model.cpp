@@ -2,10 +2,11 @@
 #include <fstream>
 #include "Model.h"
 
+const string Path = "C:\\Users\\Vlad\\Desktop\\Books.txt";
 
 void Model::clearFile()
 {
-	ofstream outf("C:\\Users\\Vlad\\Desktop\\Books.txt", ofstream::out | ofstream::trunc);
+	ofstream outf(Path, ofstream::out | ofstream::trunc);
 	outf.close();
 };
 
@@ -16,7 +17,7 @@ void Model::clearVector()
 
 void Model::loadFromFile() 
 {
-    ifstream inf("C:\\Users\\Vlad\\Desktop\\Books.txt");
+    ifstream inf(Path);
 	
     while (inf)
     {
@@ -41,7 +42,7 @@ void Model::loadFromFile()
 
 void Model::add(Book book)
 {
-	ofstream outf("C:\\Users\\Vlad\\Desktop\\Books.txt", ios::app);
+	ofstream outf(Path, ios::app);
 	
 	if (!outf.eof()) 
 	{
@@ -60,32 +61,26 @@ Book Model::searchByKey(string key)
 {
     Book book;
     int size = books.size();
-    bool searchBK, check = true;
 	for (int number = 0; number < size; number++)
 	{
         if (books[number].ISBN == key)
 		{
-            searchBK = true;
             book.name =             books[number].name;
             book.author =           books[number].author;
             book.releaseYear =      books[number].releaseYear;
             book.ISBN =             books[number].ISBN;
-            check = false;
             return book;
         }
     }
-	if (check == true) 
-	{
-        book.name = "Not Found";
-        return book;
-    }	
+     book.name = "Not Found";
+     return book;
 };
 
 
 
 void Model::rewriteFile()
 {
-    ofstream outf("C:\\Users\\Vlad\\Desktop\\Books.txt", ios::app);
+    ofstream outf(Path, ios::app);
     int size = books.size();
     for (int number = 0; number < size; number++)
     {
