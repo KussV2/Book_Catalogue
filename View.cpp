@@ -36,15 +36,15 @@ string View::getISBN()
     return ISBN;
 }
 
-void View::showCatalogue(int i, Book x) 
+void View::showCatalogue(int identificationNumber, Book book)
 {
     cout << "\n";
-    cout << "/***Book #" << i + 1 << "***/" << endl;
-    cout << x.name << endl;
-    cout << x.author << endl;
-    cout << x.releaseYear << endl;
-    cout << x.ISBN << endl;
-    cout << "<----------------------->" << endl;
+    cout << "/***Book #" << identificationNumber + 1 << "***/"  << endl;
+    cout << book.name                                           << endl;
+    cout << book.author                                         << endl;
+    cout << book.releaseYear                                    << endl;
+    cout << book.ISBN                                           << endl;
+    cout << "<----------------------->"                         << endl;
 };
 
 void View::showMessage( const char msg[] ) 
@@ -55,8 +55,9 @@ void View::showMessage( const char msg[] )
 string View::showSearchBook() 
 {
     string key;
-    cout << "The word that you wanna search by= ";
-    cin >> key;
+    cout << "What ISBN do you want to find ";
+    cin.ignore();
+    getline(cin, key);
     return key;
 };
 
@@ -66,16 +67,16 @@ string View::getSearchedString(string key)
     return key;
 };
 
-Book View::showSearchByKey(Book x) 
+Book View::showSearchByKey(Book book)
 {
     cout << "\n";
-    cout << "/***Book***/"                  << endl;
-    cout << x.name                          << endl;
-    cout << x.author                        << endl;
-    cout << x.releaseYear                   << endl;
-    cout << x.ISBN                          << endl;
-    cout << "<----------------------->"     << endl;
-    return x;
+    cout << "/***Book***/"                     << endl;
+    cout << book.name                          << endl;
+    cout << book.author                        << endl;
+    cout << book.releaseYear                   << endl;
+    cout << book.ISBN                          << endl;
+    cout << "<----------------------->"        << endl;
+    return book;
 };
 
 void View::showEnteredData(Book book)
@@ -108,22 +109,9 @@ char View::showMainChoices()
 };
 
 
-int View::showDeletedData(int vecSize) 
+int View::getEditableData(int bookNumber) 
 {
-    int bookNumber;
-    cout << "What book do you want to delete?" << endl;
     cin >> bookNumber;
-    
-    while (bookNumber > vecSize) 
-    {
-        cout << "There are too little books in this catalogue, enter from 1 to " << vecSize << endl;
-        cin >> bookNumber;
-        bookNumber -= 1;
-        if (bookNumber <= vecSize) 
-        {
-            break;
-        }
-    }
     return bookNumber;
 };
 
@@ -137,136 +125,62 @@ string View::showCheckRepeatWordNumber()
 };
 
 
-
-int View::showEditBookNumber(int vecSize)
-{
-    int bookNumber = 0;
-    string replacement;
-
-    while(true) 
-	{
-        cout << "What book do you want to change" << endl;
-        cin >> bookNumber;
-        if(cin.fail())
-        {
-            cin.clear(); 
-            cin.ignore(32767, '\n'); 
-        }
-        else 
-        {
-            bookNumber -= 1;
-            return bookNumber;
-        }
-    }
-    while (bookNumber > vecSize) 
-	{
-        cout << "There are too little books in this catalogue, enter from 1 to " << vecSize << endl;
-        cin >> bookNumber;
-        if (bookNumber <= vecSize)
-        {
-            break;
-        }
-    }
-    bookNumber -= 1;
-    return bookNumber;
-};
-
-
-char View::showEditTempNumber() 
+char View::showEditFieldNumber() 
 {    
-    char b;
+    char bookNumber;
     cout << "Change Name(1), Author(2), Year of release(3), ISBN(4)" << endl;
-    cin >> b;
-    return b;
+    cin >> bookNumber;
+    return bookNumber;
 }
 
 
-string View::showEditBookReplacement(char b, Book x, int d) 
+string View::showEditBookReplacement(char choice, Book book)
 {
     string replacement;
-    d -= 1;
 
-    if (b == '1')
+    if (choice == '1')
 	{
-        cout << "The name that is currently written in the catalogue = " 				<< x.name <<            ",  Enter another name ";
+        cout << "The name that is currently written in the catalogue = " 				<< book.name <<            ",  Enter another name ";
         cin >> replacement;
     }
-    else if (b == '2') 
+    else if (choice == '2')
 	{
-        cout << "The author that is currently written in the catalogue = " 				<< x.author <<          ", Enter another author ";
+        cout << "The author that is currently written in the catalogue = " 				<< book.author <<          ", Enter another author ";
         cin >> replacement;
     }
-    else if (b == '3') 
+    else if (choice == '3')
 	{
-        cout << "The year of release that is currently written in the catalogue = " 	<< x.releaseYear <<     ", Enter another year of release ";
+        cout << "The year of release that is currently written in the catalogue = " 	<< book.releaseYear <<     ", Enter another year of release ";
         cin >> replacement;
     }
-    else if (b == '4') 
+    else if (choice == '4')
 	{
-        cout << "The ISBN that is currently written in the catalogue = " 	            << x.ISBN <<            ", Enter another ISBN ";
+        cout << "The ISBN that is currently written in the catalogue = " 	            << book.ISBN <<            ", Enter another ISBN ";
         cin >> replacement;
     }
     return replacement;
 };
 
-string View::showCheckRepeatWord(string editReplaceWord, Book x, int n, char b)
+string View::showCheckDub()
 {
-    int i = 0;
-    n -= 1;
-    while (i != 1)
-    {
-        if (b == '1')
-        {
-            if (editReplaceWord == x.name)
-            {
-                cout << "This word is the same that the one you want to change, please enter another word" << endl;
-                cin >> editReplaceWord;
-            }
-            else 
-            {
-                i = 1;
-            }
-        }
-        else if (b == '2')
-        {
-            if (editReplaceWord == x.author)
-            {
-                cout << "This word is the same that the one you want to change, please enter another word" << endl;
-                cin >> editReplaceWord;
-            }
-            else
-            {
-                i = 1;
-            }
-        }
-        else if (b == '3')
-        {
-            if (editReplaceWord == x.releaseYear)
-            {
-                cout << "This word is the same that the one you want to change, please enter another word" << endl;
-                cin >> editReplaceWord;
-            }
-            else
-            {
-                i = 1;
-            }
-        }
-        else if (b == '4')
-        {
-            if (editReplaceWord == x.ISBN)
-            {
-                cout << "This word is the same that the one you want to change, please enter another word" << endl;
-                cin >> editReplaceWord;
-            }
-            else
-            {
-                i = 1;
-            }
-        }
-    }
+    string editReplaceWord;
+    cout << "This word is the same that the one you want to change, please enter another word" << endl;
+    cin >> editReplaceWord;
     return editReplaceWord;
 };
 
+int View::getBookNumberToEdit()
+{
+    int bookNumber = 0;
+    cout << "What book do you want to change?" << endl;
+    cin >> bookNumber;
+    return bookNumber;
+};
+
+void View::showWrongBookCapacity(int size) 
+{
+    cout << "We don't have that many profiles, please enter from 1 to " << size << endl;
+}
 
 
 

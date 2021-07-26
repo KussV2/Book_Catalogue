@@ -19,14 +19,12 @@ public:
 	void loadFromFile();
 	void add(Book book);
 	
-	bool checkRepeatWordNumber(string tempNumber);
+	bool checkDublicated(string tempNumber);
 
-	Book returnBook(int i);
-	Book searchByKey(Book x, string key);
-//	Book searchBy(Book x, string key);
-	Book getBook(int i);
+	Book searchByKey(string key);
+	Book getBook(int number);
 	
-	int vecSize();
+	int size();
 };
 
 #endif

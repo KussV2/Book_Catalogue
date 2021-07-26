@@ -20,40 +20,26 @@ void Model::loadFromFile()
 	
     while (inf)
     {
-    	Book x;
+    	Book book;
 	    string strInput1;
-        inf >> strInput1;
+        getline(inf, strInput1);
         if (strInput1 == "") 
 		{
             continue;
         }
         else 
 		{
-            x.name = strInput1;            
-            inf >> x.author;
-            inf >> x.releaseYear;
-            inf >> x.ISBN;
-			books.push_back(x);
+            book.name = strInput1;
+            getline(inf, book.author);
+            getline(inf, book.releaseYear);
+            getline(inf, book.ISBN);
+			books.push_back(book);
         }
     }
     inf.close();
 };
 
-Book Model::returnBook(int i) 
-{
-    int vecSize = books.size();
-    Book x;
-    for (; i < vecSize; i++) 
-	{
-        x.name 			=	books[i].name;
-        x.author 		= 	books[i].author;
-        x.releaseYear 	= 	books[i].releaseYear;
-        x.ISBN 			= 	books[i].ISBN;
-        return x;
-    }
-};
-
-void Model::add(Book x) 
+void Model::add(Book book)
 {
 	ofstream outf("C:\\Users\\Vlad\\Desktop\\Books.txt", ios::app);
 	
@@ -61,38 +47,37 @@ void Model::add(Book x)
 	{
         outf << "\n";
     }
-    outf << x.name << endl;
-    outf << x.author << endl;
-    outf << x.releaseYear << endl;
-    outf << x.ISBN << endl;
+    outf << book.name           << endl;
+    outf << book.author         << endl;
+    outf << book.releaseYear    << endl;
+    outf << book.ISBN           << endl;
 
 	outf.close();
-    books.push_back(x);	
-    
+    books.push_back(book);
 };
 
-Book Model::searchByKey(Book x, string key)
+Book Model::searchByKey(string key)
 {
-	int i;
-    int vecSize = books.size();
+    Book book;
+    int size = books.size();
     bool searchBK, check = true;
-	for (i = 0; i < vecSize; i++) 
+	for (int number = 0; number < size; number++)
 	{
-        if (books[i].name == key || books[i].author == key || books[i].releaseYear == key || books[i].ISBN == key) 
+        if (books[number].ISBN == key)
 		{
             searchBK = true;
-            x.name = books[i].name;
-            x.author = books[i].author;
-			x.releaseYear = books[i].releaseYear; 
-			x.ISBN = books[i].ISBN; 
+            book.name =             books[number].name;
+            book.author =           books[number].author;
+            book.releaseYear =      books[number].releaseYear;
+            book.ISBN =             books[number].ISBN;
             check = false;
-            return x;
+            return book;
         }
     }
 	if (check == true) 
 	{
-        x.name = "Not Found";
-        return x;
+        book.name = "Not Found";
+        return book;
     }	
 };
 
@@ -101,13 +86,13 @@ Book Model::searchByKey(Book x, string key)
 void Model::rewriteFile()
 {
     ofstream outf("C:\\Users\\Vlad\\Desktop\\Books.txt", ios::app);
-    int vecSize = books.size();
-    for (int i = 0; i < vecSize; i++) 
+    int size = books.size();
+    for (int number = 0; number < size; number++)
     {
-        outf << books[i].name           << endl;
-        outf << books[i].author         << endl;
-        outf << books[i].releaseYear    << endl;
-        outf << books[i].ISBN           << endl;
+        outf << books[number].name           << endl;
+        outf << books[number].author         << endl;
+        outf << books[number].releaseYear    << endl;
+        outf << books[number].ISBN           << endl;
         outf << "\n";
     }
     outf.close();
@@ -116,20 +101,20 @@ void Model::rewriteFile()
 
 void Model::deleteData(int bookNumber)
 {
-    int vectorSize = vecSize();
+    int vectorSize = size();
     bookNumber -= 1;
     books.erase(books.begin() + bookNumber);
 };
 
 
 
-bool Model::checkRepeatWordNumber(string tempNumber) 
+bool Model::checkDublicated(string tempNumber) 
 {
-    int vecSize = books.size();
+    int size = books.size();
     int repeatCounter = 0;
-    for (int i = 0; i < vecSize; i++)
+    for (int number = 0; number < size; number++)
 	{
-        if (books[i].ISBN == tempNumber) 
+        if (books[number].ISBN == tempNumber)
 		{
             return true;
         }
@@ -138,7 +123,7 @@ bool Model::checkRepeatWordNumber(string tempNumber)
             repeatCounter++;
         }
     }
-    if (repeatCounter == vecSize)
+    if (repeatCounter == size)
     {
         return false;
     }
@@ -147,7 +132,7 @@ bool Model::checkRepeatWordNumber(string tempNumber)
 
 void Model::edit(int tempBookNumber, char tempNumber, string replacement)
 {
-    int bookNumber, vectorSize = vecSize();
+    int bookNumber, vectorSize = size();
     
     bookNumber = tempBookNumber;
 
@@ -169,20 +154,20 @@ void Model::edit(int tempBookNumber, char tempNumber, string replacement)
     }
 };
 
-int Model::vecSize()
+int Model::size()
 {
-    int a = books.size();
-    return a;
+    int size = books.size();
+    return size;
 };
 
-Book Model::getBook(int i) 
+Book Model::getBook(int number)
 {
-    Book x;
-    x.name =           books[i].name;
-    x.author =         books[i].author;
-    x.releaseYear =    books[i].releaseYear;
-    x.ISBN =           books[i].ISBN;
-    return x;
+    Book book;
+    book.name =           books[number].name;
+    book.author =         books[number].author;
+    book.releaseYear =    books[number].releaseYear;
+    book.ISBN =           books[number].ISBN;
+    return book;
 }
 
 

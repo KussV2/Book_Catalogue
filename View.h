@@ -11,27 +11,28 @@ class View
 	public:
 		View()	{};
 		
-		void showCatalogue(int i, Book x);
+		void showCatalogue(int identificationNumber, Book book);
 		void showEnteredData(Book book); 
 		void showMessage(const char msg[]);
+		void showWrongBookCapacity(int size);
 		
 		string showCheckRepeatWordNumber();
-		string showCheckRepeatWord(string editReplaceWord, Book x, int n, char b);
+		string showCheckDub();
 		string showSearchBook();
 		string getSearchedString(string key);
 		string getName();
 		string getAuthor();
 		string getYearOfRelease();
 		string getISBN();
-		string showEditBookReplacement(char b, Book x, int d);
+		string showEditBookReplacement(char choice, Book book);
 		
-		int showEditBookNumber(int vecSize);
-		int showDeletedData(int vecSize);
+		int getEditableData(int bookNumber);
+		int getBookNumberToEdit();
 		
-		char showEditTempNumber();
+		char showEditFieldNumber();
 		char showMainChoices();
 		
-		Book showSearchByKey(Book x);
+		Book showSearchByKey(Book book);
 };
 
 #endif
